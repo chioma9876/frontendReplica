@@ -29,7 +29,7 @@ const swaggerDefinition = {
   },
   servers: [
     {
-      url: 'https://originalpicker-1.onrender.com',
+      url: 'https://frontendreplica.onrender.com',
       description: 'Development server',
     },
   ],
