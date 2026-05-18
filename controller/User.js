@@ -88,7 +88,13 @@ exports.getOneUser = async (req, res, next) => {
 
 exports.getAllUsers = async(req, res, next) => {
     try {
-        const users = await userModel.find().select('-password, confirmPassword');
+        const users = await userModel.find();
+        if(!users){
+            res.status(404).json({
+                message: 'No users found'
+            })
+        }
+
         res.status(200).json({
             message: 'All users fetched successfully',
             users
