@@ -95,9 +95,15 @@ exports.getAllUsers = async(req, res, next) => {
             })
         }
 
+        const data = users.map(user => ({
+            fullName: user.fullName,
+            emailAddress: user.emailAddress,
+            accountNumber: user.accountNumber,
+        }))
+
         res.status(200).json({
             message: 'All users fetched successfully',
-            users
+            data
         })
     } catch (error) {
         next ({
