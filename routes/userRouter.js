@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { createAccount, totalBalance } = require('../controller/account');
 const { createTransaction, transferFunds } = require('../controller/transaction');
-const { signUp, getOneUser, login } = require('../controller/User');
+const { signUp, getOneUser, login, getAllUsers } = require('../controller/User');
 const rateLimiter = require('../middleware/rateLimiter');
 const { verifyLogin } = require('../middleware/validation');
 
@@ -76,6 +76,62 @@ const { verifyLogin } = require('../middleware/validation');
  *                   example: User signed up successfully
  */
 router.post('/signUp', signUp)
+
+/**
+ * @swagger
+ * /api/v1/user/getUsers:
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: All users
+ *     description: Get all users in the database
+ *     responses:
+ *       200:
+ *         description: List of users
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                         description: The user ID
+ *                         example: 60d0fe4f5311236168a109ca
+ *                       fullName:
+ *                         type: string
+ *                         description: The user's full name
+ *                         example: John Doe
+ *                       emailAddress:
+ *                         type: string
+ *                         description: The user's email
+ *                         example: example@example.com
+ *                       accountNumber:
+ *                         type: string
+ *                         description: The user's account number
+ *                         example: 1234567890
+ *                       accountType:
+ *                         type: string
+ *                         description: The user's account type
+ *                         example: savings
+ *                       isVerified:
+ *                         type: boolean
+ *                         description: The user's verification status
+ *                         example: true
+ *                       createdAt:
+ *                         type: string
+ *                         description: The user's creation date
+ *                         example: 2026-01-01T00:00:00.000Z
+ *                       updatedAt:
+ *                         type: string
+ *                         description: The user's update date
+ *                         example: 2026-01-01T00:00:00.000Z
+ */
+router.get('/getUsers',getAllUsers)
 
 router.get('/getOneUser/:id', getOneUser)
 
